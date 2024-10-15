@@ -1,0 +1,105 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!-- ejemplo de uso de gravity -->
+    <!--Prueba de visibilidad-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#e3e2ad"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Ejemplo de gravity"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:background="#bcf5b1"
+            android:gravity="left"
+            android:text="left"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="18dp"
+            android:layout_height="25dp"
+            android:background="#aacaff"
+            android:gravity="center_horizontal"
+            android:text="center_horizontal"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:background="#bcf5b1"
+            android:gravity="right|bottom"
+            android:text="bottom_right" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:background="#aacaff"
+            android:gravity="center"
+            android:text="center" />
+    </LinearLayout>
+    <!-- ejemplo de uso de layout_gravity -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#d6c6cd"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Ejemplo de layout_gravity"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left"
+            android:background="#bcf5b1"
+            android:text="left" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#aacaff"
+            android:text="center_horizontal" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:background="#bcf5b1"
+            android:text="right" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="#aacaff"
+            android:text='ambos center' />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal|bottom"
+            android:background="#bcf5b1"
+            android:text='center y center-bottom' />
+    </LinearLayout>
+
+
+</LinearLayout>

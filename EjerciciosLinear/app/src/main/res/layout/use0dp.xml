@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--Línea sin pesos-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hola!"
+            android:background="@color/material_dynamic_primary60"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adiós!"
+            android:background="@color/material_dynamic_primary90"/>
+    </LinearLayout>
+
+    <!--Línea con dimensiones con valores numericos hardcodeados-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+        <TextView
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:text="Hola!"
+            android:background="@color/material_dynamic_primary60"/>
+        <TextView
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:text="Adiós!"
+            android:background="@color/material_dynamic_primary90"/>
+    </LinearLayout>
+
+    <!--Línea con pesos pero con anchos sin ser 0, aquí el programa lo que hace es primero calcular
+     los anchos de los elementos como se lo hemos indicado, con wrap_content, y luego el espacio
+     restante del padre lo divide entre los hijos en función al peso que le hemos dado, en este
+     caso de forma equitativa porque los dos tienen un peso de 1. Por eso la primera TextView es
+     más grande que la segunda porque su contenido es más largo y primero se hicieron los cálculos
+     teniendo en cuente wrap_content-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!"
+            android:background="@color/material_dynamic_primary60"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Adiós!"
+            android:background="@color/material_dynamic_primary90"/>
+    </LinearLayout>
+
+    <!--Línea con los pesos bien configurados sin un ancho a parte-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!"
+            android:background="@color/material_dynamic_primary60"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Adiós!"
+            android:background="@color/material_dynamic_primary90"/>
+    </LinearLayout>
+
+    <!--Probando gravity-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!"
+            android:background="@color/material_dynamic_primary60"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Adiós!"
+            android:background="@color/material_dynamic_primary90"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Hola!"
+            android:background="@color/material_dynamic_primary60"/>
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="Adiós!"
+            android:background="@color/material_dynamic_primary90"/>
+    </LinearLayout>
+
+</LinearLayout>

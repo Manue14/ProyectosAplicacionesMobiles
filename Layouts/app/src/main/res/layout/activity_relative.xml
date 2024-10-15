@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/texto1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/cyan"
+        android:text="HOLA" />
+    <!-- La segunda TextView, con el contenido ADIOS, se situará
+        debajo (below) de la primera (con id=texto1), y alineada a derecha en
+        el Layout "padre"-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/texto1"
+        android:layout_alignParentRight="true"
+        android:background="@color/yellow"
+        android:text="ADIOS" />
+</RelativeLayout>
