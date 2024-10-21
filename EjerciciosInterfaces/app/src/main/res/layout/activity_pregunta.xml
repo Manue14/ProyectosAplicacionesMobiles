@@ -20,12 +20,14 @@
         <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:text="SÍ" />
+            android:text="SÍ"
+            android:onClick="onClickBtnSi"/>
 
         <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:text="NO" />
+            android:text="NO"
+            android:onClick="onClickBtnNo"/>
 
         <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,5 +35,13 @@
             android:text="A VECES" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/view_respuesta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/material_dynamic_primary60"
+        android:textSize="20sp"
+        android:layout_marginBottom="30dp"/>
 
 </LinearLayout>
