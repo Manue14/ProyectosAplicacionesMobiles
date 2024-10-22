@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/big_margin"
+        android:text="@string/title_text"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="@dimen/general_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:hint="@string/user_hint"
+        android:paddingBottom="@dimen/general_padding" />
+
+    <EditText
+        android:layout_width="@dimen/general_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
+        android:paddingBottom="@dimen/general_padding" />
+
+    <Button
+        android:layout_width="@dimen/general_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/big_margin"
+        android:padding="@dimen/button_padding"
+        android:text="@string/button_text"
+        android:textAllCaps="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot_text"
+        android:textColor="@color/text_color"
+        android:textStyle="bold" />
+
+</LinearLayout>

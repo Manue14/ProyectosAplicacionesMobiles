@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">EjercicioLogin</string>
+    <string name="title_text">Connect</string>
+    <string name="button_text">Log in</string>
+    <string name="forgot_text">Did you forget your password?</string>
+    <string name="user_hint">User</string>
+    <string name="password_hint">Password</string>
+</resources>
