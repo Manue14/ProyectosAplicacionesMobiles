@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="CustomTextInput" parent="android:Widget.EditText">
-        <item name="android:colorControlActivated">@color/neon_pink</item>
+        <item name="android:colorControlActivated">@color/focus_color</item>
     </style>
 </resources>
