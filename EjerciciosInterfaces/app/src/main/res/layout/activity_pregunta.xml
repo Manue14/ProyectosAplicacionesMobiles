@@ -17,22 +17,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <Button android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btn_si"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:text="SÍ"
-            android:onClick="onClickBtnSi"/>
+            android:onClick="onClickBtn"/>
 
-        <Button android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btn_no"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:text="NO"
-            android:onClick="onClickBtnNo"/>
+            android:onClick="onClickBtn"/>
 
-        <Button android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btn_aveces"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:text="A VECES" />
+            android:text="A VECES"
+            android:onClick="onClickBtn" />
 
     </LinearLayout>
 
