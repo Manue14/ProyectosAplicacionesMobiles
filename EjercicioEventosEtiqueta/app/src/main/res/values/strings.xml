@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">EjercicioEventosEtiqueta</string>
+    <string name="initial_text">Haz click y te saludo!!!</string>
+    <string name="changed_text">HOOOOOOOOLA!!!</string>
+    <string name="title">¿GIRAMOS?</string>
+    <string name="rd_text_text">Texto</string>
+    <string name="rd_img_text">Imagen</string>
+    <string name="accept_button_text">Aceptar</string>
+    <string name="return_button_text">Volver</string>
+</resources>

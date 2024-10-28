@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="changed_text_size">15sp</dimen>
+    <dimen name="img_width">90dp</dimen>
+    <dimen name="img_height">90dp</dimen>
+    <dimen name="title_text_size">30sp</dimen>
+</resources>

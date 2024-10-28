@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/inital_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textSize="@dimen/title_text_size"/>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rd_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/rd_text_text"/>
+
+            <RadioButton
+                android:id="@+id/rd_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rd_img_text"/>
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/accept_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/accept_button_text"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/my_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/initial_text"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/my_img_view"
+        android:layout_width="@dimen/img_width"
+        android:layout_height="@dimen/img_height"
+        android:src="@drawable/skull"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/return_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="@string/return_button_text"/>
+
+</LinearLayout>
