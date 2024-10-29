@@ -11,6 +11,7 @@
         android:padding="@dimen/general_padding">
 
         <TextView
+            android:id="@+id/tv_respuesta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hello World!"
@@ -74,9 +75,11 @@
         </HorizontalScrollView>
 
         <ImageButton
+            android:id="@+id/img_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_foreground" />
+            android:src="@drawable/ic_launcher_foreground"
+            android:visibility="gone"/>
 
         <ToggleButton
             android:layout_width="wrap_content"
@@ -91,17 +94,26 @@
             android:text="Botón" />
 
         <CheckBox
+            android:id="@+id/chk_windows"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="Windows" />
 
         <CheckBox
+            android:id="@+id/chk_linux"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Linux" />
 
+        <CheckBox
+            android:id="@+id/chk_otros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Otros" />
+
         <RadioGroup
+            android:id="@+id/rg_respuesta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

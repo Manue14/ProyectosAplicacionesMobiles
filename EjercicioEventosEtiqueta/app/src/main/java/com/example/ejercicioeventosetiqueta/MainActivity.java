@@ -2,7 +2,10 @@ package com.example.ejercicioeventosetiqueta;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,13 +18,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView myTextView;
     private ImageView myImgView;
     private int counter = 0;
+    private Button btnAccept, returnButton;
+    private RadioGroup rdGroup;
+    private int selectedId;
+    private LinearLayout initialLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initializeViews();
 
-        myTextView = findViewById(R.id.my_text_view);
         myTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,11 +44,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        myImgView = findViewById(R.id.my_img_view);
         myImgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 girar(myImgView);
+            }
+        });
+
+        selectedId = rdGroup.getCheckedRadioButtonId();
+        rdGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                selectedId = i;
+            }
+        });
+
+        btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setView(selectedId);
+            }
+        });
+
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                returnView();
             }
         });
     }
@@ -49,5 +77,40 @@ public class MainActivity extends AppCompatActivity {
     private void girar(View view) {
         float rotation = view.getRotation();
         view.setRotation(rotation + 45);
+    }
+
+    private void setView(int id) {
+        if (id == R.id.rd_txt) {
+            initialLayout.setVisibility(View.GONE);
+            myImgView.setVisibility(View.GONE);
+
+            myTextView.setVisibility(View.VISIBLE);
+            returnButton.setVisibility(View.VISIBLE);
+        } else {
+            initialLayout.setVisibility(View.GONE);
+            myTextView.setVisibility(View.GONE);
+
+            myImgView.setVisibility(View.VISIBLE);
+            returnButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void returnView() {
+        myTextView.setVisibility(View.GONE);
+        myImgView.setVisibility(View.GONE);
+        returnButton.setVisibility(View.GONE);
+
+        initialLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void initializeViews() {
+        initialLayout = findViewById(R.id.inital_layout);
+        btnAccept = findViewById(R.id.accept_btn);
+        returnButton = findViewById(R.id.return_btn);
+        myTextView = findViewById(R.id.my_text_view);
+        myImgView = findViewById(R.id.my_img_view);
+        rdGroup = findViewById(R.id.rd_group);
+        btnAccept = findViewById(R.id.accept_btn);
+        returnButton = findViewById(R.id.return_btn);
     }
 }
