@@ -49,6 +49,13 @@
             android:layout_height="wrap_content"
             android:text="@string/accept_button_text"/>
 
+        <EditText
+            android:id="@+id/txt_angle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/angle_hint"
+            android:inputType="number" />
+
     </LinearLayout>
 
     <TextView

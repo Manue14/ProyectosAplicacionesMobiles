@@ -3,10 +3,12 @@ package com.example.ejercicioeventosetiqueta;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+    private static final float MIN_TURN_ANGLE = 10f;
+    private static final float MAX_TURN_ANGLE = 90f;
+
     private TextView myTextView;
     private ImageView myImgView;
     private int counter = 0;
@@ -22,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup rdGroup;
     private int selectedId;
     private LinearLayout initialLayout;
+    private EditText txtAngle;
+    float angleTurn = 0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +69,20 @@ public class MainActivity extends AppCompatActivity {
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setView(selectedId);
+                String angleStr = txtAngle.getText().toString();
+                if (angleStr != null && !angleStr.trim().isEmpty()) {
+                    angleTurn = Float.parseFloat(angleStr);
+
+                    if (angleTurn < MIN_TURN_ANGLE || angleTurn > MAX_TURN_ANGLE) {
+                        showToast("Introduzca un valor en el rango especificado");
+                    } else {
+                        showToast("Ángulo de giro sestablecido a: " + angleTurn);
+                        setView(selectedId);
+                    }
+
+                } else {
+                    showToast("Introduzca un valor");
+                }
             }
         });
 
@@ -75,8 +95,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void girar(View view) {
-        float rotation = view.getRotation();
-        view.setRotation(rotation + 45);
+        if (view.getRotation() >= 360f) {
+            view.setRotation(view.getRotation() % 360f);
+        }
+        view.setRotation(view.getRotation() + angleTurn);
     }
 
     private void setView(int id) {
@@ -112,5 +134,10 @@ public class MainActivity extends AppCompatActivity {
         rdGroup = findViewById(R.id.rd_group);
         btnAccept = findViewById(R.id.accept_btn);
         returnButton = findViewById(R.id.return_btn);
+        txtAngle = findViewById(R.id.txt_angle);
+    }
+
+    private void showToast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }
