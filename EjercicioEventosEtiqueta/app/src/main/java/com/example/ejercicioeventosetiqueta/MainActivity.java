@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String angleStr = txtAngle.getText().toString();
-                if (angleStr != null && !angleStr.trim().isEmpty()) {
+                if (checkIfFloat(angleStr)) {
                     angleTurn = Float.parseFloat(angleStr);
 
                     if (angleTurn < MIN_TURN_ANGLE || angleTurn > MAX_TURN_ANGLE) {
@@ -135,6 +135,15 @@ public class MainActivity extends AppCompatActivity {
         btnAccept = findViewById(R.id.accept_btn);
         returnButton = findViewById(R.id.return_btn);
         txtAngle = findViewById(R.id.txt_angle);
+    }
+
+    private boolean checkIfFloat(String number) {
+        try {
+            Float.parseFloat(number);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
     }
 
     private void showToast(String msg) {

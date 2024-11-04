@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/txt_nombre"
+        android:layout_width="@dimen/text_edit_width"
+        android:layout_height="wrap_content"
+        android:hint="@string/placeholder_name" />
+
+    <EditText
+        android:id="@+id/txt_nacimiento"
+        android:layout_width="@dimen/text_edit_width"
+        android:layout_height="wrap_content"
+        android:hint="@string/placeholder_nacimiento" />
+
+    <Button
+        android:id="@+id/btn_saludar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/button_margin_top"
+        android:layout_marginBottom="@dimen/button_margin_bottom"
+        android:text="@string/btn_text" />
+
+    <TextView
+        android:id="@+id/txt_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

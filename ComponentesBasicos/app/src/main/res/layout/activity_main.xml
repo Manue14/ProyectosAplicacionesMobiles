@@ -33,6 +33,20 @@
             android:inputType="number" />
 
         <EditText
+            android:id="@+id/et_sumando1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Sumando 1"
+            android:inputType="numberSigned" />
+
+        <EditText
+            android:id="@+id/et_sumando2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Sumando 2"
+            android:inputType="numberSigned" />
+
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Introduce tu población"
@@ -47,9 +61,10 @@
                 android:layout_height="wrap_content">
 
                 <Button
+                    android:id="@+id/btn_sumar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Botón 1"
+                    android:text="Sumar"
                     android:layout_margin="15dp"/>
 
                 <Button

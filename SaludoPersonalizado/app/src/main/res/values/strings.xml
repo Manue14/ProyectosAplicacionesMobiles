@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SaludoPersonalizado</string>
+    <string name="placeholder_name">Nombre</string>
+    <string name="placeholder_nacimiento">Año de nacimiento</string>
+    <string name="btn_text">Saludar</string>
+    <string name="error_text">Faltan datos</string>
+</resources>
