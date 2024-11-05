@@ -4,4 +4,10 @@
     <string name="placeholder_nacimiento">Año de nacimiento</string>
     <string name="btn_text">Saludar</string>
     <string name="error_text">Faltan datos</string>
+    <string name="sra_txt">Sra.</string>
+    <string name="sr_txt">Sr.</string>
+    <string name="despedida_txt">¿Deseas despedida?</string>
+    <string name="despedidas_text">Elige tu despedida</string>
+    <string name="adios_text">Adiós</string>
+    <string name="pronto_text">Hasta pronto</string>
 </resources>

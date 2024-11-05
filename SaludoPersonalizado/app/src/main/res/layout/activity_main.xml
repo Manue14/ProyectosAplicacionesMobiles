@@ -7,19 +7,85 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center_vertical"
+    android:padding="@dimen/general_padding">
 
     <EditText
         android:id="@+id/txt_nombre"
-        android:layout_width="@dimen/text_edit_width"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/placeholder_name" />
 
     <EditText
         android:id="@+id/txt_nacimiento"
-        android:layout_width="@dimen/text_edit_width"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/placeholder_nacimiento" />
+
+    <RadioGroup
+        android:id="@+id/rd_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rd_sra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/sra_txt"/>
+
+        <RadioButton
+            android:id="@+id/rd_sr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sr_txt"/>
+
+    </RadioGroup>
+
+    <CheckBox
+        android:id="@+id/chk_despedida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/despedida_txt" />
+
+    <LinearLayout
+        android:id="@+id/despedidas_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/despedidas_text"/>
+
+        <RadioGroup
+            android:id="@+id/rd_group_despedidas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rd_adios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/adios_text"/>
+
+            <RadioButton
+                android:id="@+id/rd_pronto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pronto_text"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_saludar"
@@ -27,11 +93,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/button_margin_top"
         android:layout_marginBottom="@dimen/button_margin_bottom"
+        android:layout_gravity="center_horizontal"
         android:text="@string/btn_text" />
 
     <TextView
         android:id="@+id/txt_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/saludo_size"
+        android:textColor="@color/red"/>
 
 </LinearLayout>
