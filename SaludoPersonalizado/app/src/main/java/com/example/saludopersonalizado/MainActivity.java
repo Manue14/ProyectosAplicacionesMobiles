@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
 
-        Pattern pattern = Pattern.compile("^[1-9][0-9]{3}$");
+        Pattern pattern = Pattern.compile("^[1-9][0-9]{0,3}$");
         Matcher matcher = pattern.matcher(nacimiento);
 
         return matcher.matches();
