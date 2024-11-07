@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
     private SeekBar skbRed, skbGreen, skbBlue, skbAlpha;
     private TextView txtRed, txtGreen, txtBlue, txtAlpha;
     private View viewColor;
@@ -27,82 +27,44 @@ public class MainActivity extends AppCompatActivity {
         initialize();
         updateColorView();
 
-        this.skbRed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                txtRed.setText(String.valueOf(i));
-                redValue = i;
-                updateColorView();
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        this.skbGreen.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                txtGreen.setText(String.valueOf(i));
-                greenValue = i;
-                updateColorView();
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        this.skbBlue.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                txtBlue.setText(String.valueOf(i));
-                blueValue = i;
-                updateColorView();
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        this.skbAlpha.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                txtAlpha.setText(String.valueOf(i));
-                alphaValue = i;
-                updateColorView();
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
+        this.skbRed.setOnSeekBarChangeListener(this);
+        this.skbGreen.setOnSeekBarChangeListener(this);
+        this.skbBlue.setOnSeekBarChangeListener(this);
+        this.skbAlpha.setOnSeekBarChangeListener(this);
     }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+        switch (seekBar.getId()) {
+            case R.id.red_bar:
+                this.redValue = i;
+                this.txtRed.setText(String.valueOf(i));
+            break;
+
+            case R.id.green_bar:
+                this.greenValue = i;
+                this.txtGreen.setText(String.valueOf(i));
+            break;
+
+            case R.id.blue_bar:
+                this.blueValue = i;
+                this.txtBlue.setText(String.valueOf(i));
+            break;
+
+            case R.id.alpha_bar:
+                this.alphaValue = i;
+                this.txtAlpha.setText(String.valueOf(i));
+            break;
+
+        }
+        updateColorView();
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {}
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {}
 
     private void initialize() {
         this.skbRed = findViewById(R.id.red_bar);
@@ -125,16 +87,6 @@ public class MainActivity extends AppCompatActivity {
         this.txtBlue.setText(String.valueOf(this.blueValue));
         this.txtAlpha.setText(String.valueOf(this.alphaValue));
 
-        this.equivalencies.put(0, "0");
-        this.equivalencies.put(1, "1");
-        this.equivalencies.put(2, "2");
-        this.equivalencies.put(3, "3");
-        this.equivalencies.put(4, "4");
-        this.equivalencies.put(5, "5");
-        this.equivalencies.put(6, "6");
-        this.equivalencies.put(7, "7");
-        this.equivalencies.put(8, "8");
-        this.equivalencies.put(9, "9");
         this.equivalencies.put(10, "A");
         this.equivalencies.put(11, "B");
         this.equivalencies.put(12, "C");
@@ -146,14 +98,13 @@ public class MainActivity extends AppCompatActivity {
     private void updateColorView() {
         String hexValue = "#" + intToHex(this.alphaValue) + intToHex(this.redValue) +
                 intToHex(this.greenValue) + intToHex(this.blueValue);
-        System.out.println(hexValue);
         this.viewColor.setBackgroundColor(Color.parseColor(hexValue));
     }
 
     private String intToHex(int i) {
         String hex = "";
         do {
-            hex = this.equivalencies.get(i % 16) + hex;
+            hex = (i % 16 >= 10 ? this.equivalencies.get(i % 16) : i % 16) + hex;
             i = i / 16;
         } while (i > 0);
         if (hex.length() < 2) {
