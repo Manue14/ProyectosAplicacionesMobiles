@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="15dp"
+    android:background="@color/material_dynamic_tertiary60">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:text="Activity 1 (MainActivity)" />
+
+    <EditText
+        android:id="@+id/et_nombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre" />
+
+    <Button
+        android:id="@+id/btn_finalizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalizar activity"
+        android:onClick="onClickBtn"/>
+
+    <Button
+        android:id="@+id/btn_activity_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Llamar a la Activity 2"
+        android:onClick="onClickBtn"/>
+
+</LinearLayout>
