@@ -36,4 +36,18 @@
         android:text="Llamar a la Activity 2"
         android:onClick="onClickBtn"/>
 
+    <Button
+        android:id="@+id/btn_activity_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Llamar a la Activity 3 + datos"
+        android:onClick="onClickBtn"/>
+
+    <Button
+        android:id="@+id/btn_activity_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Llamar a la Activity 4 + bundle"
+        android:onClick="onClickBtn"/>
+
 </LinearLayout>

@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Método 4
         btn_implements = findViewById(R.id.btn_implements);
-        btn_implements.setOnClickListener(this::onClick);
+        btn_implements.setOnClickListener(this);
 
     }//end onCreate
 
