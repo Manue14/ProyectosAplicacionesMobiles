@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CambioDeMoneda</string>
+    <string name="titulo_main">Cambio de moneda</string>
+    <string name="text_pesetas_euros">Pts. a Euros</string>
+    <string name="text_euros_pesetas">Euros a Pts.</string>
+    <string name="text_boton_cambiar">Cambiar</string>
+    <string name="valor_text_view">Introduce valor</string>
+    <string name="valor_hint">Valor</string>
+    <string name="titulo_resultado">Resultado</string>
+    <string name="text_boton_volver">Volver</string>
+</resources>
