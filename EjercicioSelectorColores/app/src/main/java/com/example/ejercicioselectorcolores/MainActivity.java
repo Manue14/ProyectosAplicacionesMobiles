@@ -1,5 +1,6 @@
 package com.example.ejercicioselectorcolores;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +17,6 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
     private SeekBar skbRed, skbGreen, skbBlue, skbAlpha;
-    private TextView txtRed, txtGreen, txtBlue, txtAlpha;
     private View viewColor;
     private int redValue, greenValue, blueValue, alphaValue;
     private HashMap<Integer, String> equivalencies = new HashMap<Integer, String>();
@@ -38,22 +38,18 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         switch (seekBar.getId()) {
             case R.id.red_bar:
                 this.redValue = i;
-                this.txtRed.setText(String.valueOf(i));
             break;
 
             case R.id.green_bar:
                 this.greenValue = i;
-                this.txtGreen.setText(String.valueOf(i));
             break;
 
             case R.id.blue_bar:
                 this.blueValue = i;
-                this.txtBlue.setText(String.valueOf(i));
             break;
 
             case R.id.alpha_bar:
                 this.alphaValue = i;
-                this.txtAlpha.setText(String.valueOf(i));
             break;
 
         }
@@ -71,21 +67,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         this.skbGreen = findViewById(R.id.green_bar);
         this.skbBlue = findViewById(R.id.blue_bar);
         this.skbAlpha = findViewById(R.id.alpha_bar);
-        this.txtRed = findViewById(R.id.txt_red_value);
-        this.txtGreen = findViewById(R.id.txt_green_value);
-        this.txtBlue = findViewById(R.id.txt_blue_value);
-        this.txtAlpha = findViewById(R.id.txt_alpha_value);
         this.viewColor = findViewById(R.id.view_color);
 
         this.redValue = this.skbRed.getProgress();
         this.greenValue = this.skbGreen.getProgress();
         this.blueValue = this.skbBlue.getProgress();
         this.alphaValue = this.skbAlpha.getProgress();
-
-        this.txtRed.setText(String.valueOf(this.redValue));
-        this.txtGreen.setText(String.valueOf(this.greenValue));
-        this.txtBlue.setText(String.valueOf(this.blueValue));
-        this.txtAlpha.setText(String.valueOf(this.alphaValue));
 
         this.equivalencies.put(10, "A");
         this.equivalencies.put(11, "B");
@@ -111,5 +98,16 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             hex = "0" + hex;
         }
         return hex;
+    }
+
+    public void onClickColorView(View view) {
+        Intent intent = new Intent(this, Activity2.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("red", this.redValue);
+        bundle.putInt("green", this.greenValue);
+        bundle.putInt("blue", this.blueValue);
+        bundle.putInt("alpha", this.alphaValue);
+        intent.putExtra("colorBundle", bundle);
+        startActivity(intent);
     }
 }

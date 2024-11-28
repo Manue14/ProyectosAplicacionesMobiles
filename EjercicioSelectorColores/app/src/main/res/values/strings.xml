@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">EjercicioSelectorColores</string>
     <string name="titulo">COLOR RGBA</string>
-    <string name="red_text">R:</string>
-    <string name="green_text">G:</string>
-    <string name="blue_text">B:</string>
-    <string name="alpha_text">A:</string>
+    <string name="red_text">Red:</string>
+    <string name="green_text">Green:</string>
+    <string name="blue_text">Blue:</string>
+    <string name="alpha_text">Alpha:</string>
+    <string name="return_button_text">Volver atrás</string>
 </resources>
