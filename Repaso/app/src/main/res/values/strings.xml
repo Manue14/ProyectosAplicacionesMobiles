@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Repaso</string>
+    <string name="cierre">Cierre</string>
+    <string name="hola">Hola %1$s</string>
+</resources>
