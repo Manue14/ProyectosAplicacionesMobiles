@@ -7,6 +7,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -16,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
     private Button btnAct2Deprecated, btnAct2, btnCameraDeprecated, btnCamera;
     private TextView myTextView;
+    private ActivityResultLauncher<Intent> intentLlamadaMainActivity2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
                 deprecatedChange();
             }
         });
+
+        btnAct2.setOnClickListener(registerToActivity2);
     }
 
     private void initialize() {
@@ -37,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
         btnCameraDeprecated = findViewById(R.id.btn_camera_deprecated);
         btnCamera = findViewById(R.id.btn_camera);
         myTextView = findViewById(R.id.my_txt);
+
+        intentLlamadaMainActivity2 = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        myTextView.setText("Activity Result OK: Callback " + result.getData().getStringExtra(MainActivity2.ACTIVITY_RES_MSG));
+                    }
+                });
     }
 
     private void deprecatedChange() {
@@ -54,4 +69,13 @@ public class MainActivity extends AppCompatActivity {
             myTextView.setText("Resultado correcto " + data.getStringExtra(MainActivity2.ACTIVITY_RES_MSG));
         }
     }
+
+    private View.OnClickListener registerToActivity2 = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(view.getContext(), MainActivity2.class);
+            intent.putExtra("nombre", "Manuel");
+            intentLlamadaMainActivity2.launch(intent);
+        }
+    };
 }
