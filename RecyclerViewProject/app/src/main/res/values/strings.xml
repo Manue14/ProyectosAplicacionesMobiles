@@ -2,4 +2,7 @@
     <string name="app_name">RecyclerViewProject</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="see_btn_txt">See</string>
+    <string name="title_str">My Recycler View</string>
+    <string name="back_btn_txt">Go Back</string>
 </resources>

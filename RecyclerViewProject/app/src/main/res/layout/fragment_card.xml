@@ -3,35 +3,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".CardFragment">
+    tools:context=".CardFragment"
+    android:padding="@dimen/card_padding"
+    android:background="@drawable/border_background"
+    android:layout_margin="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="100dp"
+            android:id="@+id/animal_img_view"
+            android:layout_width="@dimen/img_width"
+            android:layout_height="@dimen/img_height"
             android:scaleType="fitXY"
-            android:src="@drawable/dog"/>
+            android:src="@drawable/perro"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/block_margin">
 
             <TextView
+                android:id="@+id/animal_title_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hola" />
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
 
-            <Button
+            <TextView
+                android:id="@+id/animal_txt_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="See" />
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/see_animal_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/see_btn_txt" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
 
     </LinearLayout>
 
