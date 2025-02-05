@@ -1,9 +1,13 @@
 package com.example.recyclerviewproject;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,9 +15,14 @@ import java.util.List;
 
 public class AnimalListAdapter extends RecyclerView.Adapter {
     private List<Animal> animales;
+    private ActivityResultLauncher<Intent> animalViewResultLauncher;
 
-    public AnimalListAdapter(List<Animal> animales){
+    public AnimalListAdapter(List<Animal> animales, MainActivity mainActivity){
         this.animales = animales;
+        animalViewResultLauncher = mainActivity.registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    Log.d("My debug msg", result.getData().getStringExtra("animal"));
+                });
     }
 
     @NonNull
@@ -31,7 +40,7 @@ public class AnimalListAdapter extends RecyclerView.Adapter {
         cardFragment.getAnimalTextView().setText(animal.getText());
         cardFragment.getAnimalImgView().setImageResource(animal.getImg_resource_id());
         cardFragment.getSeeAnimalButton().setOnClickListener(view -> {
-            System.out.println(animal.getName());
+            onClickSeeButton(animal, view);
         });
     }
 
@@ -40,7 +49,9 @@ public class AnimalListAdapter extends RecyclerView.Adapter {
         return animales.size();
     }
 
-    private void onClickSeeButton(Animal animal) {
-
+    private void onClickSeeButton(Animal animal, View view) {
+        Intent intent = new Intent(view.getContext(), AnimalView.class);
+        intent.putExtra("animal", animal);
+        animalViewResultLauncher.launch(intent);
     }
 }

@@ -1,6 +1,9 @@
 package com.example.recyclerviewproject;
 
-public class Animal {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Animal implements Parcelable {
     private String name;
     private String text;
     private int img_resource_id;
@@ -11,6 +14,12 @@ public class Animal {
         this.name = name;
         this.text = text;
         this.img_resource_id = img_resource_id;
+    }
+
+    private Animal(Parcel in) {
+        name = in.readString();
+        text = in.readString();
+        img_resource_id = in.readInt();
     }
 
     public String getText() {
@@ -36,4 +45,28 @@ public class Animal {
     public void setImg_resource_id(int img_resource_id) {
         this.img_resource_id = img_resource_id;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(name);
+        out.writeString(text);
+        out.writeInt(img_resource_id);
+    }
+
+    public static final Parcelable.Creator<Animal> CREATOR = new Parcelable.Creator<Animal>() {
+        @Override
+        public Animal createFromParcel(Parcel source) {
+            return new Animal(source);
+        }
+
+        @Override
+        public Animal[] newArray(int size) {
+            return new Animal[0];
+        }
+    };
 }

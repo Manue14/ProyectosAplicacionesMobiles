@@ -1,0 +1,37 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color lavender
+color purple
+color white
+dimen child_margin
+dimen general_margin
+dimen radio_tamaño
+dimen tamaño_general
+dimen titulo_tamaño
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id btn_cambiar
+id btn_volver
+id et_moneda
+id main
+id rd_euros_pesetas
+id rd_pesetas_euros
+id txt_resultado
+layout activity_2
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+string text_boton_cambiar
+string text_boton_volver
+string text_euros_pesetas
+string text_pesetas_euros
+string titulo_main
+string titulo_resultado
+string valor_hint
+string valor_text_view
+style Base.Theme.CambioDeMoneda
+style Theme.CambioDeMoneda
+xml backup_rules
+xml data_extraction_rules

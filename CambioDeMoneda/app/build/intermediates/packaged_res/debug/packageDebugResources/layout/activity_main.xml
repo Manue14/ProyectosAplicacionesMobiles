@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/lavender"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/titulo_tamaño"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textColor="@color/purple"
+        android:layout_marginBottom="@dimen/general_margin"
+        android:text="@string/titulo_main"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/general_margin">
+
+        <RadioButton
+            android:id="@+id/rd_pesetas_euros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/radio_tamaño"
+            android:layout_marginRight="@dimen/child_margin"
+            android:checked="true"
+            android:text="@string/text_pesetas_euros" />
+
+        <RadioButton
+            android:id="@+id/rd_euros_pesetas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/radio_tamaño"
+            android:layout_marginLeft="@dimen/child_margin"
+            android:text="@string/text_euros_pesetas" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/general_margin"
+        android:layout_marginBottom="@dimen/general_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/tamaño_general"
+            android:layout_marginRight="@dimen/child_margin"
+            android:text="@string/valor_text_view" />
+
+        <EditText
+            android:id="@+id/et_moneda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/child_margin"
+            android:hint="@string/valor_hint"
+            android:inputType="numberDecimal"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_cambiar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_boton_cambiar"/>
+
+</LinearLayout>
