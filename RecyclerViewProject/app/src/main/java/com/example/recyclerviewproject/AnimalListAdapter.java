@@ -17,12 +17,9 @@ public class AnimalListAdapter extends RecyclerView.Adapter {
     private List<Animal> animales;
     private ActivityResultLauncher<Intent> animalViewResultLauncher;
 
-    public AnimalListAdapter(List<Animal> animales, MainActivity mainActivity){
+    public AnimalListAdapter(List<Animal> animales, ActivityResultLauncher<Intent> animalViewResultLauncher){
         this.animales = animales;
-        animalViewResultLauncher = mainActivity.registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    Log.d("My debug msg", result.getData().getStringExtra("animal"));
-                });
+        this.animalViewResultLauncher = animalViewResultLauncher;
     }
 
     @NonNull
@@ -42,6 +39,10 @@ public class AnimalListAdapter extends RecyclerView.Adapter {
         cardFragment.getSeeAnimalButton().setOnClickListener(view -> {
             onClickSeeButton(animal, view);
         });
+
+        if (animal.isRead()) {
+            cardFragment.getAnimalCheckView().setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

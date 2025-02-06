@@ -21,6 +21,7 @@ public class CardFragment extends RecyclerView.ViewHolder {
     private TextView animalTextView;
     private ImageView animalImgView;
     private Button seeAnimalButton;
+    private TextView animalCheckView;
 
     public CardFragment(View view) {
         super(view);
@@ -28,6 +29,7 @@ public class CardFragment extends RecyclerView.ViewHolder {
         animalTextView = view.findViewById(R.id.animal_txt_view);
         animalImgView = view.findViewById(R.id.animal_img_view);
         seeAnimalButton = view.findViewById(R.id.see_animal_button);
+        animalCheckView = view.findViewById(R.id.animal_txt_check);
     }
 
     public TextView getAnimalTitleView() {
@@ -60,5 +62,13 @@ public class CardFragment extends RecyclerView.ViewHolder {
 
     public void setSeeAnimalButton(Button seeAnimalButton) {
         this.seeAnimalButton = seeAnimalButton;
+    }
+
+    public TextView getAnimalCheckView() {
+        return animalCheckView;
+    }
+
+    public void setAnimalCheckView(TextView animalCheckView) {
+        this.animalCheckView = animalCheckView;
     }
 }

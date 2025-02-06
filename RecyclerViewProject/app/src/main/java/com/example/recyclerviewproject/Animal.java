@@ -7,6 +7,7 @@ public class Animal implements Parcelable {
     private String name;
     private String text;
     private int img_resource_id;
+    private boolean isRead;
 
     public Animal() {}
 
@@ -14,6 +15,7 @@ public class Animal implements Parcelable {
         this.name = name;
         this.text = text;
         this.img_resource_id = img_resource_id;
+        this.isRead = false;
     }
 
     private Animal(Parcel in) {
@@ -44,6 +46,14 @@ public class Animal implements Parcelable {
 
     public void setImg_resource_id(int img_resource_id) {
         this.img_resource_id = img_resource_id;
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean read) {
+        isRead = read;
     }
 
     @Override

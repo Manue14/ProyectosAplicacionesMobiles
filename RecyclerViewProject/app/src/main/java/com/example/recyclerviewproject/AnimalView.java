@@ -2,19 +2,12 @@ package com.example.recyclerviewproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import java.util.ArrayList;
 
 public class AnimalView extends AppCompatActivity {
     private TextView titleView;
@@ -36,7 +29,7 @@ public class AnimalView extends AppCompatActivity {
 
         backButton.setOnClickListener(view -> {
             Intent intent = new Intent();
-            intent.putExtra("animal", animal.getName());
+            intent.putExtra("animal", animal);
             setResult(AnimalView.RESULT_OK, intent);
             this.finish();
         });
