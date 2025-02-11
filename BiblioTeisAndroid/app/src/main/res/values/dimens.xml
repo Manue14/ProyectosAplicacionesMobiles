@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="title_size">45sp</dimen>
+    <dimen name="form_label_size">25sp</dimen>
+    <dimen name="form_input_width">200dp</dimen>
+    <dimen name="button_text_size">25sp</dimen>
+</resources>
