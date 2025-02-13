@@ -4,4 +4,5 @@
     <string name="login_button_text">Log-in</string>
     <string name="password_label_text">Contraseña</string>
     <string name="email_label_text">Email</string>
+    <string name="see_book_text">Ver</string>
 </resources>

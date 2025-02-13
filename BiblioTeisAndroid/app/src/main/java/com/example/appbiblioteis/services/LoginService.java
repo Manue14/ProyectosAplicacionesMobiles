@@ -1,6 +1,9 @@
 package com.example.appbiblioteis.services;
 
+import android.content.Intent;
 import android.util.Log;
+
+import androidx.activity.result.ActivityResultLauncher;
 
 import com.example.appbiblioteis.API.models.LoginFormObject;
 import com.example.appbiblioteis.API.models.User;
@@ -8,6 +11,8 @@ import com.example.appbiblioteis.API.repository.BookRepository;
 import com.example.appbiblioteis.API.repository.UserRepository;
 
 import java.util.List;
+
+import okhttp3.internal.Internal;
 
 public class LoginService {
     private final UserRepository userRepository;
@@ -24,7 +29,6 @@ public class LoginService {
             public void onSuccess(User result) {
                 if (result == null) {
                     Log.d("LoginService", "Usuario no existe o contraseña incorrecta");
-                    return;
                 }
                 Session session = Session.getInstance();
                 session.setUser(result);
