@@ -1,8 +1,14 @@
 package com.example.persistenciadatos;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.CharArrayBuffer;
+import android.database.ContentObserver;
+import android.database.Cursor;
+import android.database.DataSetObserver;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
@@ -78,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
 
         db.select(this);
 
+        db.close();
 
+        /*
+        ClimbingDB db = new ClimbingDB(this);
+        Cursor c = db.getReadableDatabase().rawQuery("SELECT * FROM routes", null);
+        */
     }
 }

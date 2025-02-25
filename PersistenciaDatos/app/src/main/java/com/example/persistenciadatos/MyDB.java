@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -39,7 +40,7 @@ public class MyDB extends SQLiteOpenHelper {
         wdb.endTransaction();
 
         wdb.close();
-
+        Log.d("myDB", "my insert");
         return res;
     }
 
@@ -48,8 +49,10 @@ public class MyDB extends SQLiteOpenHelper {
         String[] params = new String[1];
         params[0] = "1";
         Cursor c = rdb.rawQuery("SELECT * FROM Usuarios WHERE codigo = ?", params);
-
+        
+        Log.d("myDB", "my select");
         if (c.moveToFirst()) {
+
             do {
                 String usuario = c.getString(c.getColumnIndexOrThrow("codigo")) +
                         " - " + c.getString(c.getColumnIndexOrThrow("nombre"));
