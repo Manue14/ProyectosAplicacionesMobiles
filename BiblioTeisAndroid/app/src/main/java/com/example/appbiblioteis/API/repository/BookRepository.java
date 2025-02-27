@@ -6,6 +6,9 @@ import com.example.appbiblioteis.API.models.Book;
 import com.example.appbiblioteis.API.retrofit.ApiClient;
 import com.example.appbiblioteis.API.retrofit.ApiService;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -97,6 +100,8 @@ public class BookRepository {
             }
         });
     }
+
+
 
     // Callback interface for handling success or failure
     public interface ApiCallback<T> {

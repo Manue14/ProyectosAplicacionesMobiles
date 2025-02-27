@@ -1,7 +1,6 @@
 package com.example.appbiblioteis;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,22 +8,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appbiblioteis.API.models.Book;
-import com.example.appbiblioteis.API.models.User;
 import com.example.appbiblioteis.API.repository.BookRepository;
-import com.example.appbiblioteis.API.repository.UserRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainView extends AppCompatActivity  {
     private BookRepository bookRepository;
+    private RecyclerView recommendedBooksRecyclerView;
     private RecyclerView newBooksRecyclerView;
-    private BookCardViewModel newBooksCardViewModel;
-    List<Book> nuevosLibros = new ArrayList<>();
+    private RecyclerView availableBooksRecyclerView;
+    private RecommendedBookCardViewModel recommendedBooksCardViewModel;
+    private NewBookCardViewModel newBooksCardViewModel;
+    private AvailableBookCardViewModel availableBooksCardViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,36 +35,39 @@ public class MainView extends AppCompatActivity  {
         });
         initialize();
 
+        recommendedBooksRecyclerView.setLayoutManager(new LinearLayoutManager(
+                this,LinearLayoutManager.HORIZONTAL, false));
+
         newBooksRecyclerView.setLayoutManager(new LinearLayoutManager(
                 this,LinearLayoutManager.HORIZONTAL, false));
 
-        bookRepository.getBooks(new BookRepository.ApiCallback<List<Book>>() {
-            @Override
-            public void onSuccess(List<Book> result) {
-                List<Book> nuevosLibros = new ArrayList<>();
+        availableBooksRecyclerView.setLayoutManager(new GridLayoutManager(
+                this, 2));
 
-                nuevosLibros.add(result.get(0));
-                nuevosLibros.add(result.get(1));
-                nuevosLibros.add(result.get(2));
-                nuevosLibros.add(result.get(3));
-
-                newBooksCardViewModel.setLibros(nuevosLibros);
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.d("Libros", "Error al cargar el RecylerView de nuevos libros: " + t.getMessage());
-            }
-        });
-
+        recommendedBooksCardViewModel.loadRecommendedBooks();
+        newBooksCardViewModel.loadNewBooks();
+        availableBooksCardViewModel.loadAvailableBooks();
     }
 
     private void initialize() {
         this.bookRepository = new BookRepository();
+
+        this.recommendedBooksRecyclerView = findViewById(R.id.recommended_books_recycler_view);
         this.newBooksRecyclerView = findViewById(R.id.new_books_recycler_view);
-        this.newBooksCardViewModel = new ViewModelProvider(this).get(BookCardViewModel.class);
+        this.availableBooksRecyclerView = findViewById(R.id.available_books_recycler_view);
+
+        this.recommendedBooksCardViewModel = new ViewModelProvider(this).get(RecommendedBookCardViewModel.class);
+        this.newBooksCardViewModel = new ViewModelProvider(this).get(NewBookCardViewModel.class);
+        this.availableBooksCardViewModel = new ViewModelProvider(this).get(AvailableBookCardViewModel.class);
+
+        this.recommendedBooksCardViewModel.getMutableLiveData().observe(this, libros -> {
+            recommendedBooksRecyclerView.setAdapter(new BookListAdapter(libros));
+        });
         this.newBooksCardViewModel.getMutableLiveData().observe(this, libros -> {
             newBooksRecyclerView.setAdapter(new BookListAdapter(libros));
+        });
+        this.availableBooksCardViewModel.getMutableLiveData().observe(this, libros -> {
+            availableBooksRecyclerView.setAdapter(new BookListAdapter(libros));
         });
     }
 }
