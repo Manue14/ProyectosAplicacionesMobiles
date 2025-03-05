@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,9 +30,11 @@ public class BookListAdapter extends RecyclerView.Adapter {
     private List<Book> libros;
     private ImageRepository imageRepository;
     private Drawable placeholderImg;
+    private ActivityResultLauncher<Intent> bookDetailViewActivityResultLauncher;
 
-    public BookListAdapter(List<Book> libros){
+    public BookListAdapter(List<Book> libros, ActivityResultLauncher<Intent> bookDetailViewActivityResultLauncher){
         this.libros = libros;
+        this.bookDetailViewActivityResultLauncher = bookDetailViewActivityResultLauncher;
         this.imageRepository = new ImageRepository();
     }
 
@@ -66,8 +69,6 @@ public class BookListAdapter extends RecyclerView.Adapter {
                     Log.d("Img", "Error al cargar la imagen del libro");
                 }
             });
-
-            //bookCard.getBookImageView().setImageURI(Uri.parse(libro.getBookPicture()));
         }
         bookCard.getSeeBookButton().setOnClickListener(view -> {
             onClickSeeButton(libro, view);
@@ -80,6 +81,8 @@ public class BookListAdapter extends RecyclerView.Adapter {
     }
 
     private void onClickSeeButton(Book libro, View view) {
-        Log.d("book-msg", "Seleccionado libro: " + libro.getTitle());
+        Intent intent = new Intent(view.getContext(), BookDetailView.class);
+        intent.putExtra("libro", libro);
+        bookDetailViewActivityResultLauncher.launch(intent);
     }
 }

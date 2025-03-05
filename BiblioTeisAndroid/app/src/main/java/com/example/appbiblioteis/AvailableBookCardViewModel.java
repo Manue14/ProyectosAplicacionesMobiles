@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AvailableBookCardViewModel extends ViewModel {
+    private List<Book> allAvailableBooks = new ArrayList<>();
     private MutableLiveData<List<Book>> libros = new MutableLiveData<>();
 
     public MutableLiveData<List<Book>> getMutableLiveData() {
@@ -33,15 +34,13 @@ public class AvailableBookCardViewModel extends ViewModel {
             @Override
             public void onSuccess(List<Book> result) {
 
-                List<Book> availableBooks = new ArrayList<>();
-
                 for (Book book : result) {
                     if (book.isAvailable()) {
-                        availableBooks.add(book);
+                        allAvailableBooks.add(book);
                     }
                 }
 
-                libros.setValue(availableBooks);
+                libros.setValue(allAvailableBooks);
             }
 
             @Override
@@ -49,5 +48,16 @@ public class AvailableBookCardViewModel extends ViewModel {
                 Log.e("Libros", "Error al obtener nuevos libros: " + t.getMessage());
             }
         });
+    }
+
+    public void filter(CharSequence author, CharSequence title) {
+        List<Book> copy = new ArrayList<>();
+
+        for (Book libro : allAvailableBooks) {
+            if (libro.getAuthor().contains(author) && libro.getTitle().contains(title)) {
+                copy.add(libro);
+            }
+        }
+        libros.setValue(copy);
     }
 }

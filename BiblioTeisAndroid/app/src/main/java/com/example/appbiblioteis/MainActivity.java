@@ -44,27 +44,6 @@ public class MainActivity extends AppCompatActivity {
         initialize();
 
         loginButton.setOnClickListener(onLogin);
-        /*MainActivityVM vm = new ViewModelProvider(this).get(MainActivityVM.class);
-
-        vm.book.observe(this, (Book book) -> {
-            ((TextView)findViewById(R.id.name)).setText(book.getTitle());
-            ((TextView)findViewById(R.id.Autor)).setText(book.getAuthor());
-        });
-
-        BookRepository br = new BookRepository();
-
-        br.getBookById(1, new BookRepository.ApiCallback<Book>() {
-            @Override
-            public void onSuccess(Book result) {
-                vm.book.setValue(result);
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.d("msg_bug", t.getMessage());
-            }
-        });*/
-
     }
 
     private void initialize() {

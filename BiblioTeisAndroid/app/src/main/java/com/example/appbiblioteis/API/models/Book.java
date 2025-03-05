@@ -1,8 +1,11 @@
 package com.example.appbiblioteis.API.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class Book {
+public class Book implements Parcelable {
     private int id;
     private String title;
     private String author;
@@ -10,10 +13,58 @@ public class Book {
     private String publishedDate;
     private String bookPicture;
     private boolean isAvailable;
-
     private List<BookLending> bookLendings;
-    // Getters & Setters
 
+    public Book() {}
+
+    public Book(String title, String author, String isbn, String publishedDate) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.publishedDate = publishedDate;
+        this.isAvailable = true;
+    }
+
+    private Book(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        author = in.readString();
+        isbn = in.readString();
+        publishedDate = in.readString();
+        bookPicture = in.readString();
+        isAvailable = in.readBoolean();
+        //in.readList(bookLendings, BookLending.class.getClassLoader(), BookLending.class);
+
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeInt(id);
+        out.writeString(title);
+        out.writeString(author);
+        out.writeString(isbn);
+        out.writeString(publishedDate);
+        out.writeString(bookPicture);
+        out.writeBoolean(isAvailable);
+        //out.writeList(bookLendings);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Parcelable.Creator<Book> CREATOR = new Parcelable.Creator<Book>() {
+        @Override
+        public Book createFromParcel(Parcel source) {
+            return new Book(source);
+        }
+
+        @Override
+        public Book[] newArray(int size) {
+            return new Book[0];
+        }
+    };
 
     public int getId() {
         return id;

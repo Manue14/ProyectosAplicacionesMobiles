@@ -1,14 +1,18 @@
 package com.example.appbiblioteis;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appbiblioteis.API.models.Book;
@@ -22,9 +26,12 @@ import okhttp3.ResponseBody;
 public class WideBookListAdapter extends RecyclerView.Adapter {
     private List<Book> libros;
     private ImageRepository imageRepository;
+    private Drawable placeholderImg;
+    private ActivityResultLauncher<Intent> bookDetailViewActivityResultLauncher;
 
-    public WideBookListAdapter(List<Book> libros){
+    public WideBookListAdapter(List<Book> libros, ActivityResultLauncher<Intent> bookDetailViewActivityResultLauncher){
         this.libros = libros;
+        this.bookDetailViewActivityResultLauncher = bookDetailViewActivityResultLauncher;
         this.imageRepository = new ImageRepository();
     }
 
@@ -32,6 +39,7 @@ public class WideBookListAdapter extends RecyclerView.Adapter {
     @Override
     public WideBookCard onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.wide_book_card, parent, false);
+        this.placeholderImg = ResourcesCompat.getDrawable(parent.getResources(), R.drawable.book_cover_placeholder, null);
         return new WideBookCard(view);
     }
 
@@ -42,6 +50,8 @@ public class WideBookListAdapter extends RecyclerView.Adapter {
 
         bookCard.getBookTitleView().setText(libro.getTitle());
         bookCard.getAuthorView().setText(libro.getAuthor());
+
+        bookCard.getBookImageView().setImageDrawable(placeholderImg);
         if (!libro.getBookPicture().isBlank()) {
             imageRepository.getImage(libro.getBookPicture(), new BookRepository.ApiCallback<ResponseBody>() {
                 @Override
@@ -57,10 +67,6 @@ public class WideBookListAdapter extends RecyclerView.Adapter {
                     Log.d("Img", "Error al cargar la imagen del libro");
                 }
             });
-
-
-
-            bookCard.getBookImageView().setImageURI(Uri.parse(libro.getBookPicture()));
         }
         bookCard.getSeeBookButton().setOnClickListener(view -> {
             onClickSeeButton(libro, view);
@@ -73,6 +79,8 @@ public class WideBookListAdapter extends RecyclerView.Adapter {
     }
 
     private void onClickSeeButton(Book libro, View view) {
-        Log.d("book-msg", "Seleccionado libro: " + libro.getTitle());
+        Intent intent = new Intent(view.getContext(), BookDetailView.class);
+        intent.putExtra("libro", libro);
+        bookDetailViewActivityResultLauncher.launch(intent);
     }
 }
