@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,19 +23,20 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appbiblioteis.API.models.Book;
 import com.example.appbiblioteis.API.models.BookLending;
-import com.example.appbiblioteis.API.models.BookLendingForm;
 import com.example.appbiblioteis.API.models.User;
 import com.example.appbiblioteis.API.repository.BookLendingRepository;
 import com.example.appbiblioteis.API.repository.BookRepository;
 import com.example.appbiblioteis.API.repository.ImageRepository;
-import com.example.appbiblioteis.API.repository.UserRepository;
 import com.example.appbiblioteis.services.Session;
 
 import okhttp3.ResponseBody;
 
 public class BookDetailView extends AppCompatActivity {
     private Book libro;
-    boolean isLent = true;
+    private int libro_id;
+    private User user;
+    private BookRepository bookRepository;
+    private BookLendingRepository lendingRepository;
     private ImageRepository imageRepository;
     private Drawable placeholderImg;
     private TextView titleTxt;
@@ -67,102 +67,25 @@ public class BookDetailView extends AppCompatActivity {
         initialize();
         initializeToolbar();
 
-        titleTxt.setText(libro.getTitle());
-        authorTxt.setText(libro.getAuthor());
-        isbnTxt.setText(libro.getIsbn());
-        fechaTxt.setText(libro.getPublishedDate());
-
-        prestarBtn.setEnabled(true);
-
-        if (libro != null && libro.getBookPicture() != null) {
-            if (!libro.getBookPicture().isBlank()) {
-                imageRepository.getImage(libro.getBookPicture(), new BookRepository.ApiCallback<ResponseBody>() {
-                    @Override
-                    public void onSuccess(ResponseBody result) {
-                        Bitmap decodedByte = BitmapFactory.decodeStream(result.byteStream());
-
-                        imgView.setImageBitmap(decodedByte);
-
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t) {
-                        imgView.setImageDrawable(placeholderImg);
-                    }
-                });
-            }
-        }
-
         backBtn.setOnClickListener(view -> {
             Intent intent = new Intent();
-            intent.putExtra("libro", libro);
             setResult(BookDetailView.RESULT_OK, intent);
             this.finish();
         });
 
         prestarBtn.setOnClickListener(view -> {
-            User user = Session.getInstance().getUser();
-            BookLendingForm bookLendingForm = new BookLendingForm(libro.getId(), user.getId());
-            new BookLendingRepository().lendBook(bookLendingForm, new BookRepository.ApiCallback<Boolean>() {
-                @Override
-                public void onSuccess(Boolean result) {
-                    if (result) {
-                        Toast.makeText(BookDetailView.this, "Libro prestado con éxito", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(BookDetailView.this, "No se pudo prestar el libro", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-                    Toast.makeText(BookDetailView.this, "No se pudo prestar el libro", Toast.LENGTH_SHORT).show();
-                }
-            });
+            lendBook();
         });
 
         devolverBtn.setOnClickListener(view -> {
-            new BookLendingRepository().returnBook(libro.getId(), new BookRepository.ApiCallback<Boolean>() {
-                @Override
-                public void onSuccess(Boolean result) {
-                    if (result) {
-                        Toast.makeText(BookDetailView.this, "Libro devuelto con éxito", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(BookDetailView.this, "No se pudo devolver el libro", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-                    Toast.makeText(BookDetailView.this, "No se pudo devolver el libro", Toast.LENGTH_SHORT).show();
-                }
-            });
-        });
-
-        checkIfBookIsLent();
-    }
-
-    private void checkIfBookIsLent() {
-        new UserRepository().getUserById(Session.getInstance().getUser().getId(), new BookRepository.ApiCallback<User>() {
-            @Override
-            public void onSuccess(User result) {
-                for (BookLending lending : result.getBookLendings()) {
-                    if (lending.getBookId() == libro.getId()) {
-                        prestarBtn.setEnabled(false);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
+            returnBook();
         });
     }
 
     private void initialize() {
-        Intent intent = getIntent();
-        this.libro = intent.getParcelableExtra("libro", Book.class);
+        this.user = Session.getInstance().getUser();
+        this.bookRepository = new BookRepository();
+        this.lendingRepository = new BookLendingRepository();
         this.imageRepository = new ImageRepository();
         this.placeholderImg = ResourcesCompat.getDrawable(getResources(), R.drawable.book_cover_placeholder, null);
 
@@ -177,6 +100,11 @@ public class BookDetailView extends AppCompatActivity {
         this.prestarBtn = findViewById(R.id.book_view_prestar_btn);
         this.devolverBtn = findViewById(R.id.book_view_devolver_btn);
         this.backBtn = findViewById(R.id.book_view_return_btn);
+
+        Intent intent = getIntent();
+        this.libro_id = intent.getIntExtra("libro_id", 0);
+        getBookFromAPI(libro_id);
+
     }
 
     private void initializeToolbar() {
@@ -208,6 +136,106 @@ public class BookDetailView extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                 startActivity(intent);
+            }
+        });
+    }
+
+    private void getBookFromAPI(int target_id) {
+        bookRepository.getBookById(target_id, new BookRepository.ApiCallback<Book>() {
+            @Override
+            public void onSuccess(Book result) {
+                libro = result;
+                loadBookData(result);
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(BookDetailView.this, "Error al obtener el libro con id: " + target_id, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadBookData(Book libro) {
+        if (this.user == null) {
+            this.user = Session.getInstance().getUser();
+        }
+        titleTxt.setText(libro.getTitle());
+        authorTxt.setText(libro.getAuthor());
+        isbnTxt.setText(libro.getIsbn());
+        fechaTxt.setText(libro.getPublishedDate());
+
+        if (libro != null && libro.getBookPicture() != null) {
+            if (!libro.getBookPicture().isBlank()) {
+                imageRepository.getImage(libro.getBookPicture(), new BookRepository.ApiCallback<ResponseBody>() {
+                    @Override
+                    public void onSuccess(ResponseBody result) {
+                        Bitmap decodedByte = BitmapFactory.decodeStream(result.byteStream());
+
+                        imgView.setImageBitmap(decodedByte);
+
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        imgView.setImageDrawable(placeholderImg);
+                    }
+                });
+            }
+        }
+
+        updateLendingButtons(libro);
+    }
+
+    private void updateLendingButtons(Book libro) {
+        if (libro.isAvailable()) {
+            prestarBtn.setEnabled(true);
+        } else {
+            prestarBtn.setEnabled(false);
+        }
+
+        devolverBtn.setEnabled(false);
+        for (BookLending lending : libro.getBookLendings()) {
+            if (lending.getUserId() == user.getId() && lending.getReturnDate() == null) {
+                devolverBtn.setEnabled(true);
+            }
+        }
+    }
+
+    private void lendBook() {
+        lendingRepository.lendBook(libro.getId(), user.getId(), new BookRepository.ApiCallback<Boolean>() {
+            @Override
+            public void onSuccess(Boolean result) {
+                if (result) {
+                    Toast.makeText(BookDetailView.this, "Libro prestado con éxito", Toast.LENGTH_SHORT).show();
+                    getBookFromAPI(libro_id);
+                } else {
+                    Toast.makeText(BookDetailView.this, "No se pudo prestar el libro", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(BookDetailView.this, "No se pudo prestar el libro", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void returnBook() {
+        lendingRepository.returnBook(libro_id, new BookRepository.ApiCallback<Boolean>() {
+            @Override
+            public void onSuccess(Boolean result) {
+                if (result) {
+                    Toast.makeText(BookDetailView.this, "Libro devuelto con éxito", Toast.LENGTH_SHORT).show();
+                    getBookFromAPI(libro_id);
+                } else {
+                    Toast.makeText(BookDetailView.this, "No se pudo devolver el libro", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(BookDetailView.this, "No se pudo devolver el libro", Toast.LENGTH_SHORT).show();
             }
         });
     }

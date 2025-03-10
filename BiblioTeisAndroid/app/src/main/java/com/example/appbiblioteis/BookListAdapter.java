@@ -82,7 +82,7 @@ public class BookListAdapter extends RecyclerView.Adapter {
 
     private void onClickSeeButton(Book libro, View view) {
         Intent intent = new Intent(view.getContext(), BookDetailView.class);
-        intent.putExtra("libro", libro);
+        intent.putExtra("libro_id", libro.getId());
         bookDetailViewActivityResultLauncher.launch(intent);
     }
 }

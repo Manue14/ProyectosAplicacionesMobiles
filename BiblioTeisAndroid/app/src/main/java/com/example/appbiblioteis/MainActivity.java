@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.mainViewResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-
+                    Toast.makeText(this, result.getData().getStringExtra("test"), Toast.LENGTH_SHORT).show();
                 });
 
         this.onLogin = new View.OnClickListener() {

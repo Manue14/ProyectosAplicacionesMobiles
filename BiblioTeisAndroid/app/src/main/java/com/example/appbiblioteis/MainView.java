@@ -1,7 +1,9 @@
 package com.example.appbiblioteis;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -26,8 +28,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKey;
 
 import com.example.appbiblioteis.API.repository.BookRepository;
+import com.example.appbiblioteis.services.Session;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class MainView extends AppCompatActivity  {
     private BookRepository bookRepository;
@@ -131,6 +139,14 @@ public class MainView extends AppCompatActivity  {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        recommendedBooksCardViewModel.loadRecommendedBooks();
+        newBooksCardViewModel.loadNewBooks();
+        availableBooksCardViewModel.loadAvailableBooks();
+    }
+
     private void initialize() {
         this.bookRepository = new BookRepository();
 
@@ -182,6 +198,9 @@ public class MainView extends AppCompatActivity  {
         goBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("test", "This is a test");
+                setResult(MainView.RESULT_OK, intent);
                 finish();
             }
         });
@@ -193,5 +212,36 @@ public class MainView extends AppCompatActivity  {
                 startActivity(intent);
             }
         });
+    }
+
+    private void setSharedPreferences() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.putString("email", Session.getInstance().getUser().getEmail());
+        editor.apply();
+        //editor.commit();
+
+        String email = sp.getString("email", null);
+
+        try {
+            MasterKey mk = new MasterKey.Builder(this)
+                    .setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build();
+
+            SharedPreferences spEncrypted = EncryptedSharedPreferences.create(this, "ENCTPTEDSHARE",
+                    mk, EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
+
+            SharedPreferences.Editor ed = spEncrypted.edit();
+            ed.putString("token", "123456");
+
+            ed.apply();
+
+            String t = spEncrypted.getString("token", null);
+        } catch (GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

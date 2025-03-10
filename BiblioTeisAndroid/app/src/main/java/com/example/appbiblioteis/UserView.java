@@ -1,10 +1,13 @@
 package com.example.appbiblioteis;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -45,18 +48,26 @@ public class UserView extends AppCompatActivity {
         });
 
         initialize();
-
+        Toast.makeText(this, PreferenceManager.getDefaultSharedPreferences(this).getString("email", null), Toast.LENGTH_SHORT).show();
         userNameTxt.setText(user.getName());
         userEmailTxt.setText(user.getEmail());
         userDateTxt.setText(user.getDateJoined().substring(0, 10));
 
         lentBooksRecyclerView.setLayoutManager(new LinearLayoutManager(
                 this, LinearLayoutManager.VERTICAL, false));
-        lentBooksCardViewModel.loadLentBooks();
 
         Toolbar tb = findViewById(R.id.main_toolbar);
         setSupportActionBar(tb);
         initializeToolbar();
+    }
+
+   @Override
+    protected void onResume() {
+        super.onResume();
+        this.lentBooksCardViewModel.getMutableLiveData().observe(this, libros -> {
+            lentBooksRecyclerView.setAdapter(new WideBookListAdapter(libros, this.bookDetailViewActivityResultLauncher));
+        });
+        lentBooksCardViewModel.loadLentBooks();
     }
 
     private void initialize() {
@@ -72,10 +83,7 @@ public class UserView extends AppCompatActivity {
                 }
         );
         this.lentBooksCardViewModel = new ViewModelProvider(this).get(LentBookCardViewModel.class);
-        lentBooksCardViewModel.setUser(this.user);
-        this.lentBooksCardViewModel.getMutableLiveData().observe(this, libros -> {
-            lentBooksRecyclerView.setAdapter(new WideBookListAdapter(libros, this.bookDetailViewActivityResultLauncher));
-        });
+        lentBooksCardViewModel.setUserId(this.user.getId());
     }
 
     private void initializeToolbar() {

@@ -10,18 +10,19 @@ import com.example.appbiblioteis.API.models.BookLending;
 import com.example.appbiblioteis.API.models.User;
 import com.example.appbiblioteis.API.repository.BookLendingRepository;
 import com.example.appbiblioteis.API.repository.BookRepository;
+import com.example.appbiblioteis.API.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LentBookCardViewModel extends ViewModel {
-    private User user;
+    private int userId;
     List<Book> lentBooks = new ArrayList<>();
     private MutableLiveData<List<Book>> libros = new MutableLiveData<>();
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public MutableLiveData<List<Book>> getMutableLiveData() {
@@ -37,15 +38,16 @@ public class LentBookCardViewModel extends ViewModel {
     }
 
     public void loadLentBooks() {
-        new BookLendingRepository().getAllLendings(new BookRepository.ApiCallback<List<BookLending>>() {
+        lentBooks.clear();
+        Log.d("a", "heloooo");
+        new UserRepository().getUserById(userId, new BookRepository.ApiCallback<User>() {
             @Override
-            public void onSuccess(List<BookLending> result) {
-                for (BookLending lending : result) {
-                    if (lending.getUserId() == user.getId()) {
+            public void onSuccess(User result) {
+                for (BookLending lending : result.getBookLendings()) {
+                    if (lending.getReturnDate() == null) {
                         addBookToList(lending);
                     }
                 }
-
             }
 
             @Override

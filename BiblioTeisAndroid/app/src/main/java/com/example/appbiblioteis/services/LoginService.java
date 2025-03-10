@@ -1,6 +1,8 @@
 package com.example.appbiblioteis.services;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -9,7 +11,11 @@ import com.example.appbiblioteis.API.models.LoginFormObject;
 import com.example.appbiblioteis.API.models.User;
 import com.example.appbiblioteis.API.repository.BookRepository;
 import com.example.appbiblioteis.API.repository.UserRepository;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKey;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
 import okhttp3.internal.Internal;
@@ -33,7 +39,6 @@ public class LoginService {
                 Session session = Session.getInstance();
                 session.setUser(result);
                 User currentLoggedUser = session.getUser();
-                Log.d("LoginService", "Usuario logeado: " + currentLoggedUser.getEmail());
             }
 
             @Override
